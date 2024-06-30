@@ -4,6 +4,12 @@
   transition: opacity 100ms linear;
 }
 
+.addToCartButton:hover {
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+}
+
 .green {
   color: var(--theme-success-700);
 }
