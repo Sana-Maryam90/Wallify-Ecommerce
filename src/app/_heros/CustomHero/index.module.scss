@@ -13,7 +13,7 @@
 
 .heroWrapper {
   background-color: var(--color-dark-50);
-  width: 77%;
+  width: 90%;
   max-width: 1560px;
   max-height: 884px;
   display: flex;
@@ -33,9 +33,9 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 18% var(--gutter-h);
-  padding-left: 50px;
-  padding-right: 50px;
+  padding: 12% var(--gutter-h);
+  // padding-left: 50px;
+  // padding-right: 50px;
   width: 100%;
 
   @include mid-break {
