@@ -17,7 +17,7 @@ const priceFromJSON = (priceJSON): string => {
       const parsed = JSON.parse(priceJSON)?.data[0]
       const priceValue = parsed.unit_amount
       const priceType = parsed.type
-      price = `${parsed.currency === 'usd' ? '$' : ''}${(priceValue / 100).toFixed(2)}`
+      price = `${parsed.currency === 'usd' ? '$' : 'PKR'}${(priceValue / 100).toFixed(2)}`
       if (priceType === 'recurring') {
         price += `/${
           parsed.recurring.interval_count > 1
@@ -51,6 +51,8 @@ export const Card: React.FC<{
   } = props
 
   const { description, image: metaImage } = meta || {}
+  const [isHovered, setIsHovered] = useState(false);
+
 
   const hasCategories = categories && Array.isArray(categories) && categories.length > 0
   const titleToUse = titleFromProps || title
@@ -68,20 +70,29 @@ export const Card: React.FC<{
 
   return (
     <Link href={href} className={[classes.card, className].filter(Boolean).join(' ')}>
-      <div className={classes.mediaWrapper}>
+      <div className={classes.mediaWrapper}  
+      onMouseEnter={() => setIsHovered(true)} 
+      onMouseLeave={() => setIsHovered(false)}>
         {!metaImage && <div className={classes.placeholder}>No image</div>}
         {metaImage && typeof metaImage !== 'string' && (
           <Media imgClassName={classes.image} resource={metaImage} fill />
+        )}
+
+               {/* Overlay and text on hover */}
+        {isHovered && (
+          <div className={classes.overlay}>
+            <p className={classes.overlayText}>View Details</p>
+          </div>
         )}
       </div>
 
       <div className={classes.content}>
         {titleToUse && <h4 className={classes.title}>{titleToUse}</h4>}
-        {description && (
+        {/* {description && (
           <div className={classes.body}>
             {description && <p className={classes.description}>{sanitizedDescription}</p>}
           </div>
-        )}
+        )} */}
         {doc && <Price product={doc} />}
       </div>
     </Link>

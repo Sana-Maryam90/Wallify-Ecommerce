@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react'
+import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -14,6 +14,9 @@ import classes from './index.module.scss'
 
 const HeaderComponent = ({ header }: { header: Header }) => {
   const pathname = usePathname()
+  const [hoveredLogo, setHoveredLogo] = useState(false);
+  const logoSrc = hoveredLogo ? '/logo-white.svg' : '/logo-black.svg';
+
 
   return (
     <nav
@@ -23,7 +26,15 @@ const HeaderComponent = ({ header }: { header: Header }) => {
     >
       <Gutter className={classes.wrap}>
         <Link href="/">
-          <Image src="/logo-black.svg" alt="logo" width={170} height={50} />
+          {/* <Image src="/logo-black.svg" alt="logo" width={170} height={50} /> */}
+          <Image 
+            src={logoSrc} 
+            alt="logo" 
+            width={170} 
+            height={50}
+            onMouseEnter={() => setHoveredLogo(true)} 
+            onMouseLeave={() => setHoveredLogo(false)} 
+           />
         </Link>
 
         <HeaderNav header={header} />
